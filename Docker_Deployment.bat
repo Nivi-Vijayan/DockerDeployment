@@ -21,7 +21,7 @@ docker images --format "{{.Repository}}:{{.Tag}}" >>Images.txt
 docker network create %Build%_%dateandtime%
 docker network ls >>network.txt
 
-setlocal enabledelayedexpansion
+setlocal 
 FOR /F %%G IN (Images.txt) DO (
 set A=%%G
 ECHO !A! | findstr "hcl_lm_img" > nul 2>&1
