@@ -14,10 +14,8 @@ COPY %BuildLocation% %LocalLocation%
 
 for %%i in (*.tar) do (
 ECHO %%i
-docker load --input %%i
 docker load --input %%i >> dockerimages.txt
 )
-docker images
 docker images --format "{{.Repository}}:{{.Tag}}" >>Images.txt
 
 docker network create %Build%_%dateandtime%
@@ -79,14 +77,6 @@ start http://localhost:9080/zieweb/adminconsole
 start http://localhost:8080/zie/
 start http://localhost:9088/LicenseManager/LicenseLogger
 
-set /p userinput=Do you Want to Execute Feature Testing :
-if %userinput%==y goto Feature
-if %userinput%==n goto cmd
-
-:Feature
-CALL D:\QA\ZIEWEB_Container_v1.0\Features\FeatureFile.bat
-
-:cmd
 ECHO Terminal will exit in 10 Secs
 timeout /t 10 /nobreak
 EXIT
